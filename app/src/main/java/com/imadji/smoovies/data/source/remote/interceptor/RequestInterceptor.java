@@ -1,4 +1,4 @@
-package com.imadji.smoovies.data.source.remote;
+package com.imadji.smoovies.data.source.remote.interceptor;
 
 import com.imadji.smoovies.BuildConfig;
 

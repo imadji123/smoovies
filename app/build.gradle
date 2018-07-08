@@ -25,15 +25,23 @@ android {
             outputFileName = apkName + ".apk"
         }
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 ext {
     supportVersion = "27.1.1"
     constraintLayoutVersion = "1.1.2"
+    lifecycleVersion = "1.1.1"
     retrofitVersion = "2.4.0"
     okHttpVersion = "3.10.0"
+    rxJavaVersion = "2.1.16"
+    rxAndroidVersion = "2.0.2"
     firebaseVersion = "16.0.0"
     junitVersion = "4.12"
+    mockitoVersion = "2.12.0"
     testRunnerVersion = "1.0.2"
     espressoVersion = "3.0.2"
 }
@@ -45,13 +53,20 @@ dependencies {
     implementation "com.android.support:support-v4:$supportVersion"
     implementation "com.android.support:support-media-compat:$supportVersion"
     implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
+    implementation "android.arch.lifecycle:extensions:$lifecycleVersion"
+    implementation "android.arch.lifecycle:reactivestreams:$lifecycleVersion"
     implementation "com.google.firebase:firebase-core:$firebaseVersion"
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
     implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
     testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
     testImplementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
+    testImplementation "android.arch.core:core-testing:$lifecycleVersion"
     androidTestImplementation "com.android.support.test:runner:$testRunnerVersion"
     androidTestImplementation "com.android.support.test:rules:$testRunnerVersion"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"

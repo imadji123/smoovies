@@ -1,0 +1,17 @@
+def propFile = 'version.properties'
+def versionPropsFile = file(propFile)
+if (!versionPropsFile.canRead()) {
+    throw new GradleException("Couldn't read version.properties!")
+}
+
+Properties versionProps = new Properties()
+versionProps.load(new FileInputStream(versionPropsFile))
+
+def versionMajor = versionProps['MAJOR'].toInteger()
+def versionMinor = versionProps['MINOR'].toInteger()
+def versionPatch = versionProps['PATCH'].toInteger()
+
+def versionCode = versionMajor * 100000 + versionMinor * 10000 + versionPatch * 100
+def versionName = sprintf("%d.%d.%01d", versionMajor, versionMinor, versionPatch)
+
+ext.versionProperties = new Expando(code: versionCode, name: versionName)

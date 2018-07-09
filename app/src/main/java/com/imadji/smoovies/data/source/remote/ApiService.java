@@ -12,6 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by imadji on 7/8/2018.
  */
+
 public class ApiService {
     private static Endpoint instance;
 

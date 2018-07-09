@@ -1,7 +1,8 @@
-package com.imadji.smoovies.data.model;
+package com.imadji.smoovies.data.source.remote.response;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.imadji.smoovies.data.model.Movie;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +10,8 @@ import java.util.List;
 /**
  * Created by imadji on 7/8/2018.
  */
-public class Movies {
+
+public class MoviesResponse {
     @SerializedName("results")
     @Expose
     private List<Movie> results;

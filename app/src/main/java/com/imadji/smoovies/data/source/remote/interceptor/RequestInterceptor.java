@@ -12,6 +12,7 @@ import okhttp3.Response;
 /**
  * Created by imadji on 7/8/2018.
  */
+
 public class RequestInterceptor implements Interceptor {
 
     @Override

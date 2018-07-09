@@ -1,12 +1,18 @@
 package com.imadji.smoovies.data.model;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by imadji on 7/8/2018.
  */
+
+@Entity(tableName = "movies")
 public class Movie {
+    @PrimaryKey
     @SerializedName("id")
     @Expose
     private long id;
@@ -34,6 +40,17 @@ public class Movie {
     @SerializedName("backdrop_path")
     @Expose
     private String backdropPath;
+
+    public Movie(long id, String title, String originalTitle, String overview, String releaseDate,
+                 String posterPath, String backdropPath) {
+        this.id = id;
+        this.title = title;
+        this.originalTitle = originalTitle;
+        this.overview = overview;
+        this.releaseDate = releaseDate;
+        this.posterPath = posterPath;
+        this.backdropPath = backdropPath;
+    }
 
     public long getId() {
         return id;

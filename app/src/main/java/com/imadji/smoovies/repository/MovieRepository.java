@@ -5,7 +5,6 @@ import com.imadji.smoovies.data.source.local.MovieDatabase;
 import com.imadji.smoovies.data.source.remote.ApiService;
 import com.imadji.smoovies.data.source.remote.response.MoviesResponse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Single;
@@ -18,23 +17,27 @@ import io.reactivex.schedulers.Schedulers;
 public class MovieRepository {
     private static MovieRepository instance;
 
+    private final ApiService apiService;
     private final MovieDatabase database;
 
-    private MovieRepository(MovieDatabase database) {
+    private MovieRepository(final ApiService apiService, final MovieDatabase database) {
+        this.apiService = apiService;
         this.database = database;
     }
 
-    public static MovieRepository getInstance(final MovieDatabase database) {
+    public static MovieRepository getInstance(final ApiService apiService,
+                                              final MovieDatabase database) {
         if (instance == null) {
-            instance = new MovieRepository(database);
+            instance = new MovieRepository(apiService, database);
         }
         return instance;
     }
 
     public Single<List<Movie>> loadMovies(int page) {
-        return Single.concat(loadMoviesFromDb(), loadMoviesFromApi(page))
-                .filter(movies -> !movies.isEmpty())
-                .first(new ArrayList<>());
+//        return Single.concat(loadMoviesFromDb(), loadMoviesFromApi(page))
+//                .filter(movies -> !movies.isEmpty())
+//                .first(new ArrayList<>());
+        return loadMoviesFromApi(page);
     }
 
     public Single<Movie> loadMovieDetails(long movieId) {
@@ -48,14 +51,15 @@ public class MovieRepository {
     }
 
     private Single<List<Movie>> loadMoviesFromApi(int page) {
-        return ApiService.getInstance().getNowPlayingMovies(page)
-                .subscribeOn(Schedulers.io())
-                .map(MoviesResponse::getResults)
-                .doOnSuccess(this::insertMoviesToDb);
+//        return ApiClient.getInstance().getNowPlayingMovies(page)
+//                .subscribeOn(Schedulers.io())
+//                .map(MoviesResponse::getResults)
+//                .doOnSuccess(this::insertMoviesToDb);
+        return apiService.getNowPlayingMovies(page).map(MoviesResponse::getResults);
     }
 
     private Single<List<Movie>> getSimilarMovies(long movieId, int page) {
-        return ApiService.getInstance().getSimilarMovies(movieId, page)
+        return apiService.getSimilarMovies(movieId, page)
                 .subscribeOn(Schedulers.io())
                 .map(MoviesResponse::getResults);
     }

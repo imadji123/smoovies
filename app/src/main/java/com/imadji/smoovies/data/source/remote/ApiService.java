@@ -1,42 +1,20 @@
 package com.imadji.smoovies.data.source.remote;
 
-import com.imadji.smoovies.BuildConfig;
-import com.imadji.smoovies.data.source.remote.interceptor.RequestInterceptor;
+import com.imadji.smoovies.data.source.remote.response.MoviesResponse;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
+import io.reactivex.Single;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by imadji on 7/8/2018.
  */
 
-public class ApiService {
-    private static Endpoint instance;
+public interface ApiService {
+    @GET("movie/now_playing")
+    Single<MoviesResponse> getNowPlayingMovies(@Query("page") int page);
 
-    public static Endpoint getInstance() {
-        if (instance == null) {
-            OkHttpClient.Builder client = new OkHttpClient.Builder();
-            client.addInterceptor(new RequestInterceptor());
-
-            if (BuildConfig.DEBUG) {
-                HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-                loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-                client.addInterceptor(loggingInterceptor);
-            }
-
-            Retrofit retrofit = new Retrofit.Builder().client(client.build())
-                    .baseUrl(BuildConfig.TMDB_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .build();
-
-            instance = retrofit.create(Endpoint.class);
-        }
-
-        return instance;
-    }
-
+    @GET("movie/{movie_id}/similar")
+    Single<MoviesResponse> getSimilarMovies(@Path("movie_id") long movieId, @Query("page") int page);
 }

@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 
 import com.imadji.smoovies.data.source.local.MovieDatabase;
+import com.imadji.smoovies.data.source.remote.ApiClient;
+import com.imadji.smoovies.data.source.remote.ApiService;
 import com.imadji.smoovies.repository.MovieRepository;
 
 /**
@@ -22,16 +24,20 @@ public class MyApplication extends Application {
         MyApplication.context = context;
     }
 
-    public static synchronized Context getContext() {
+    public static Context getContext() {
         return MyApplication.context;
     }
 
-    public MovieDatabase getDatabase() {
-        return MovieDatabase.getInstance(this);
+    public static ApiService getApiService() {
+        return ApiClient.getInstance();
     }
 
-    public MovieRepository getRepository() {
-        return MovieRepository.getInstance(getDatabase());
+    public static MovieDatabase getDatabase() {
+        return MovieDatabase.getInstance(getContext());
+    }
+
+    public static MovieRepository getRepository() {
+        return MovieRepository.getInstance(getApiService(), getDatabase());
     }
 
 }

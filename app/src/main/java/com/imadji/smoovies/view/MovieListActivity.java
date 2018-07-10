@@ -1,15 +1,17 @@
-package com.imadji.smoovies;
+package com.imadji.smoovies.view;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.imadji.smoovies.MyApplication;
+import com.imadji.smoovies.R;
 import com.imadji.smoovies.viewmodel.MovieViewModel;
 import com.imadji.smoovies.viewmodel.MovieViewModelFactory;
 
-public class HomeActivity extends AppCompatActivity {
-    private static final String TAG = HomeActivity.class.getSimpleName();
+public class MovieListActivity extends AppCompatActivity {
+    private static final String TAG = MovieListActivity.class.getSimpleName();
 
     private MovieViewModelFactory viewModelFactory;
     private MovieViewModel viewModel;
@@ -17,19 +19,10 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-
+        setContentView(R.layout.activity_movie);
         viewModelFactory = new MovieViewModelFactory(MyApplication.getRepository());
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(MovieViewModel.class);
-        viewModel.getMovies().observe(this, movies -> {
-            Log.d(TAG, "movies size " + movies.size());
-            if (!movies.isEmpty()) Log.d(TAG, "movie 1 " + movies.get(0).getId());
-        });
+        viewModel.getMovies().observe(this, movies -> Log.d(TAG, "movies size " + movies.size()));
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        viewModel.loadMore();
-    }
 }

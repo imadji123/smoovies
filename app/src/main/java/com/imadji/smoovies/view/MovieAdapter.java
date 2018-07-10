@@ -59,6 +59,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             movieList.clear();
             movieList.addAll(movies);
             diffResult.dispatchUpdatesTo(this);
+            notifyDataSetChanged();
         }
     }
 

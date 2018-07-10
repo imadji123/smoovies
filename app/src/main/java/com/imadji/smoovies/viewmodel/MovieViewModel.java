@@ -8,6 +8,7 @@ import android.util.Log;
 import com.imadji.smoovies.data.model.Movie;
 import com.imadji.smoovies.repository.MovieRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.disposables.Disposable;
@@ -24,6 +25,7 @@ public class MovieViewModel extends ViewModel {
 
     private Disposable disposable;
     private MutableLiveData<List<Movie>> movies;
+    private List<Movie> currentMovies;
     private int page;
     private boolean loading;
     private boolean success;
@@ -45,7 +47,10 @@ public class MovieViewModel extends ViewModel {
 
     public LiveData<List<Movie>> getMovies() {
         Log.d(TAG, "getMovies()");
-        if (movies == null) this.movies = new MutableLiveData<>();
+        if (movies == null) {
+            this.movies = new MutableLiveData<>();
+            this.currentMovies = new ArrayList<>();
+        }
         if (!success) loadMovies();
 
         return movies;
@@ -71,7 +76,8 @@ public class MovieViewModel extends ViewModel {
         Log.d(TAG, "onSuccess()");
         loading = false;
         success = true;
-        this.movies.postValue(movies);
+        this.currentMovies.addAll(movies);
+        this.movies.postValue(currentMovies);
     }
 
     private void onError(Throwable throwable) {

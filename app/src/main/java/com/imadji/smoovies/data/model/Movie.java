@@ -33,6 +33,10 @@ public class Movie {
     @Expose
     private String releaseDate;
 
+    @SerializedName("vote_average")
+    @Expose
+    private double voteAverage;
+
     @SerializedName("poster_path")
     @Expose
     private String posterPath;
@@ -42,12 +46,13 @@ public class Movie {
     private String backdropPath;
 
     public Movie(long id, String title, String originalTitle, String overview, String releaseDate,
-                 String posterPath, String backdropPath) {
+                 double voteAverage, String posterPath, String backdropPath) {
         this.id = id;
         this.title = title;
         this.originalTitle = originalTitle;
         this.overview = overview;
         this.releaseDate = releaseDate;
+        this.voteAverage = voteAverage;
         this.posterPath = posterPath;
         this.backdropPath = backdropPath;
     }
@@ -70,6 +75,10 @@ public class Movie {
 
     public String getReleaseDate() {
         return releaseDate;
+    }
+
+    public double getVoteAverage() {
+        return voteAverage;
     }
 
     public String getPosterPath() {

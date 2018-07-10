@@ -26,12 +26,14 @@ public class MovieViewModel extends ViewModel {
     private MutableLiveData<List<Movie>> movies;
     private int page;
     private boolean loading;
+    private boolean success;
 
     public MovieViewModel(final MovieRepository repository) {
         Log.d(TAG, "Instantiate MovieViewModel");
         this.repository = repository;
         this.page = 1;
         this.loading = false;
+        this.success = false;
     }
 
     @Override
@@ -43,17 +45,16 @@ public class MovieViewModel extends ViewModel {
 
     public LiveData<List<Movie>> getMovies() {
         Log.d(TAG, "getMovies()");
-        if (movies == null) {
-            movies = new MutableLiveData<>();
-            loadMovies();
-        }
+        if (movies == null) this.movies = new MutableLiveData<>();
+        if (!success) loadMovies();
+
         return movies;
     }
 
     public void loadMore() {
         Log.d(TAG, "loadMore()");
         if (loading) return;
-        page++;
+        if (success) page++;
         loadMovies();
     }
 
@@ -69,12 +70,14 @@ public class MovieViewModel extends ViewModel {
     private void onSuccess(List<Movie> movies) {
         Log.d(TAG, "onSuccess()");
         loading = false;
+        success = true;
         this.movies.postValue(movies);
     }
 
     private void onError(Throwable throwable) {
         Log.d(TAG, "onError() " + throwable.getMessage());
         loading = false;
+        success = false;
     }
 
 }

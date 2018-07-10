@@ -41,21 +41,17 @@ public class MovieRepository {
     }
 
     public Single<Movie> loadMovieDetails(long movieId) {
-        return database.getMovieDao().getMovie(movieId)
-                .subscribeOn(Schedulers.io());
+        return database.getMovieDao().getMovie(movieId);
     }
 
     private Single<List<Movie>> loadMoviesFromDb() {
-        return database.getMovieDao().getAllMovies()
-                .subscribeOn(Schedulers.io());
+        return database.getMovieDao().getAllMovies();
     }
 
     private Single<List<Movie>> loadMoviesFromApi(int page) {
-//        return ApiClient.getInstance().getNowPlayingMovies(page)
-//                .subscribeOn(Schedulers.io())
-//                .map(MoviesResponse::getResults)
-//                .doOnSuccess(this::insertMoviesToDb);
-        return apiService.getNowPlayingMovies(page).map(MoviesResponse::getResults);
+        return apiService.getNowPlayingMovies(page)
+                .subscribeOn(Schedulers.io())
+                .map(MoviesResponse::getResults);
     }
 
     private Single<List<Movie>> getSimilarMovies(long movieId, int page) {

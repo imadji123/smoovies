@@ -21,6 +21,15 @@ public class HomeActivity extends AppCompatActivity {
 
         viewModelFactory = new MovieViewModelFactory(MyApplication.getRepository());
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(MovieViewModel.class);
-        viewModel.getMovies().observe(this, movies -> Log.d(TAG, "movies " + movies.size()));
+        viewModel.getMovies().observe(this, movies -> {
+            Log.d(TAG, "movies size " + movies.size());
+            if (!movies.isEmpty()) Log.d(TAG, "movie 1 " + movies.get(0).getId());
+        });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        viewModel.loadMore();
     }
 }

@@ -9,6 +9,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
 
@@ -28,6 +29,8 @@ import butterknife.ButterKnife;
 public class MovieListActivity extends AppCompatActivity {
     private static final String TAG = MovieListActivity.class.getSimpleName();
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
@@ -41,7 +44,8 @@ public class MovieListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_list);
         ButterKnife.bind(this);
 
-        setupViews();
+        setupToolbar();
+        setupView();
 
         viewModelFactory = new MovieViewModelFactory(MyApplication.getRepository());
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(MovieViewModel.class);
@@ -51,8 +55,12 @@ public class MovieListActivity extends AppCompatActivity {
         });
     }
 
-    private void setupViews() {
-        adapter = new MovieAdapter();
+    private void setupToolbar() {
+        setSupportActionBar(toolbar);
+    }
+
+    private void setupView() {
+        adapter = new MovieAdapter(0);
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
             recyclerView.setLayoutManager(new GridLayoutManager(this, 2));

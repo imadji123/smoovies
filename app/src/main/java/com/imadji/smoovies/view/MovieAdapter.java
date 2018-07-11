@@ -1,5 +1,6 @@
 package com.imadji.smoovies.view;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
@@ -41,6 +42,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Movie movie = movieList.get(position);
         holder.setItem(movie);
+        holder.itemView.setTag(movie);
+        holder.itemView.setOnClickListener(v -> {
+          Intent intent = new Intent(holder.itemView.getContext(), MovieDetailsActivity.class);
+          intent.putExtra("movie", movie);
+          holder.itemView.getContext().startActivity(intent);
+        });
     }
 
     @Override
@@ -54,8 +61,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             movieList.addAll(movies);
             notifyDataSetChanged();
         } else {
-            final MovieDiffCallback diffCallback = new MovieDiffCallback(movieList, movies);
-            final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
+            MovieDiffCallback diffCallback = new MovieDiffCallback(movieList, movies);
+            DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
             movieList.clear();
             movieList.addAll(movies);
             diffResult.dispatchUpdatesTo(this);
@@ -70,7 +77,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         public TextView textTitle;
         @BindView(R.id.vote)
         public TextView textVote;
-
 
         public ViewHolder(View itemView) {
             super(itemView);

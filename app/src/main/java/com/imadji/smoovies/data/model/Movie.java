@@ -2,6 +2,8 @@ package com.imadji.smoovies.data.model;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -11,7 +13,7 @@ import com.google.gson.annotations.SerializedName;
  */
 
 @Entity(tableName = "movies")
-public class Movie {
+public class Movie implements Parcelable {
     @PrimaryKey
     @SerializedName("id")
     @Expose
@@ -55,6 +57,46 @@ public class Movie {
         this.voteAverage = voteAverage;
         this.posterPath = posterPath;
         this.backdropPath = backdropPath;
+    }
+
+    protected Movie(Parcel in) {
+        id = in.readLong();
+        title = in.readString();
+        originalTitle = in.readString();
+        overview = in.readString();
+        releaseDate = in.readString();
+        voteAverage = in.readDouble();
+        posterPath = in.readString();
+        backdropPath = in.readString();
+    }
+
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeString(title);
+        dest.writeString(originalTitle);
+        dest.writeString(overview);
+        dest.writeString(releaseDate);
+        dest.writeDouble(voteAverage);
+        dest.writeString(posterPath);
+        dest.writeString(backdropPath);
     }
 
     public long getId() {

@@ -56,10 +56,10 @@ public class MovieListActivity extends AppCompatActivity {
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
             recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-            recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
+            recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(5), true));
         } else {
             recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
-            recyclerView.addItemDecoration(new GridSpacingItemDecoration(4, dpToPx(10), true));
+            recyclerView.addItemDecoration(new GridSpacingItemDecoration(4, dpToPx(5), true));
         }
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());

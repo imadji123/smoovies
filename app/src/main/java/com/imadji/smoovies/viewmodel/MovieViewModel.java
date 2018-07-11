@@ -56,9 +56,19 @@ public class MovieViewModel extends ViewModel {
         return movies;
     }
 
+    public LiveData<List<Movie>> getSimilarMovies(Movie movie) {
+        Log.d(TAG, "getSimilarMovies() id " + movie.getId());
+        if (movies == null) {
+            this.movies = new MutableLiveData<>();
+            this.currentMovies = new ArrayList<>();
+        }
+        if (!success) loadSimilarMovies(movie.getId());
+        return movies;
+    }
+
     public void loadMore() {
         Log.d(TAG, "loadMore()");
-        if (loading) return;
+        if (loading) return; // need to handle page == totalPage
         if (success) page++;
         loadMovies();
     }
@@ -68,6 +78,15 @@ public class MovieViewModel extends ViewModel {
         if (loading) return;
         loading = true;
         disposable = repository.loadMovies(page)
+                .subscribeOn(Schedulers.io())
+                .subscribe(this::onSuccess, this::onError);
+    }
+
+    private void loadSimilarMovies(long movieId) {
+        Log.d(TAG, "loadMovies() page " + page);
+        if (loading) return;
+        loading = true;
+        disposable = repository.loadSimilarMovies(movieId, page)
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::onSuccess, this::onError);
     }

@@ -40,12 +40,8 @@ public class MovieRepository {
         return loadMoviesFromApi(page);
     }
 
-    public Single<Movie> loadMovieDetails(long movieId) {
-        return database.getMovieDao().getMovie(movieId);
-    }
-
-    private Single<List<Movie>> loadMoviesFromDb() {
-        return database.getMovieDao().getAllMovies();
+    public Single<List<Movie>> loadSimilarMovies(long movieId, int page) {
+        return loadSimilarMoviesFromApi(movieId, page);
     }
 
     private Single<List<Movie>> loadMoviesFromApi(int page) {
@@ -54,10 +50,14 @@ public class MovieRepository {
                 .map(MoviesResponse::getResults);
     }
 
-    private Single<List<Movie>> getSimilarMovies(long movieId, int page) {
+    private Single<List<Movie>> loadSimilarMoviesFromApi(long movieId, int page) {
         return apiService.getSimilarMovies(movieId, page)
                 .subscribeOn(Schedulers.io())
                 .map(MoviesResponse::getResults);
+    }
+
+    private Single<List<Movie>> loadMoviesFromDb() {
+        return database.getMovieDao().getAllMovies();
     }
 
     private void insertMoviesToDb(List<Movie> movies) {

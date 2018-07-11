@@ -96,7 +96,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     scrollRange = appBarLayout.getTotalScrollRange();
                 }
                 if (scrollRange + verticalOffset == 0) {
-                    collapsingToolbarLayout.setTitle(movie != null ? movie.getOriginalTitle() : getString(R.string.app_name));
+                    collapsingToolbarLayout.setTitle(getString(R.string.movie_details));
                     isShow = true;
                 } else if (isShow) {
                     collapsingToolbarLayout.setTitle(" ");

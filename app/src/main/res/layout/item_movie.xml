@@ -22,7 +22,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/movie_poster_height"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/app_name" />
 
             <TextView
                 android:id="@+id/title"
@@ -34,6 +35,7 @@
                 android:paddingTop="@dimen/spacing_super_tiny"
                 android:ellipsize="end"
                 android:singleLine="true"
+                android:text="@string/app_name"
                 android:textColor="@color/movieTitle"
                 android:textSize="@dimen/text_size_small" />
 
@@ -45,6 +47,8 @@
                 android:paddingBottom="@dimen/spacing_super_tiny"
                 android:paddingLeft="@dimen/spacing_small"
                 android:paddingRight="@dimen/spacing_small"
+                android:drawableLeft="@drawable/star"
+                android:drawablePadding="@dimen/spacing_super_tiny"
                 android:textSize="@dimen/text_size_tiny" />
 
         </RelativeLayout>

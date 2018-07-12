@@ -29,7 +29,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.MovieDetailsActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen" />
     </application>
 

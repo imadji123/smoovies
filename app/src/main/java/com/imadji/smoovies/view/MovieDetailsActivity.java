@@ -24,6 +24,8 @@ import com.imadji.smoovies.viewmodel.MovieViewModelFactory;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.imadji.smoovies.view.MovieListActivity.EXTRA_MOVIE;
+
 /**
  * Created by imadji on 7/10/2018.
  */
@@ -109,11 +111,11 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private void setupView() {
         if (getIntent() != null ) {
             Bundle data = getIntent().getExtras();
-            movie = data.getParcelable("movie");
+            movie = data.getParcelable(EXTRA_MOVIE);
             textTitle.setText(movie.getOriginalTitle());
             textReleaseYear.setText(movie.getReleaseDate().split("-")[0]);
             textDescription.setText(movie.getOverview());
-            Glide.with(this).load(BuildConfig.TMDB_IMAGE_URL + "w780/" +movie.getBackdropPath())
+            Glide.with(this).load(BuildConfig.TMDB_IMAGE_URL + "w780/" + movie.getBackdropPath())
                     .into(imageBackdrop);
         }
 

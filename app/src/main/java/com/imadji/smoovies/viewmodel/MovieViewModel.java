@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
 import com.imadji.smoovies.data.model.Movie;
+import com.imadji.smoovies.data.model.Status;
 import com.imadji.smoovies.repository.MovieRepository;
 
 import java.util.ArrayList;
@@ -25,7 +26,9 @@ public class MovieViewModel extends ViewModel {
 
     private Disposable disposable;
     private MutableLiveData<List<Movie>> movies;
+    private MutableLiveData<Status> connectionStatus;
     private List<Movie> currentMovies;
+    private Status status;
     private int page;
     private boolean loading;
     private boolean success;
@@ -43,6 +46,14 @@ public class MovieViewModel extends ViewModel {
         super.onCleared();
         Log.d(TAG, "onCleared()");
         if (disposable != null) disposable.dispose();
+    }
+
+    public LiveData<Status> getConnectionStatus() {
+        if (status == null) {
+            this.connectionStatus = new MutableLiveData<>();
+            this.status = new Status();
+        }
+        return connectionStatus;
     }
 
     public LiveData<List<Movie>> getMovies() {
@@ -95,6 +106,8 @@ public class MovieViewModel extends ViewModel {
         Log.d(TAG, "onSuccess()");
         loading = false;
         success = true;
+        this.status.setSuccess(true);
+        this.connectionStatus.postValue(status);
         this.currentMovies.addAll(movies);
         this.movies.postValue(currentMovies);
     }
@@ -103,6 +116,8 @@ public class MovieViewModel extends ViewModel {
         Log.d(TAG, "onError() " + throwable.getMessage());
         loading = false;
         success = false;
+        this.status.setSuccess(false);
+        this.connectionStatus.postValue(status);
     }
 
 }

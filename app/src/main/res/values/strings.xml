@@ -4,4 +4,6 @@
     <string name="release_year">Release Year</string>
     <string name="description">Description</string>
     <string name="related_movies">Related Movies</string>
+    <string name="connection_error">Connection problem</string>
+    <string name="action_retry">Retry</string>
 </resources>

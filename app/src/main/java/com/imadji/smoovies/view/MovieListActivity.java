@@ -3,6 +3,8 @@ package com.imadji.smoovies.view;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -12,6 +14,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.imadji.smoovies.MyApplication;
 import com.imadji.smoovies.R;
@@ -28,11 +32,16 @@ import butterknife.ButterKnife;
 
 public class MovieListActivity extends AppCompatActivity {
     private static final String TAG = MovieListActivity.class.getSimpleName();
+    protected static final String EXTRA_MOVIE = "com.imadji.smoovies.extras.EXTRA_MOVIE";
 
+    @BindView(R.id.coordinator)
+    CoordinatorLayout coordinatorLayout;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
+    @BindView(R.id.progress_bar)
+    ProgressBar progressBar;
 
     private MovieAdapter adapter;
     private MovieViewModelFactory viewModelFactory;
@@ -52,6 +61,15 @@ public class MovieListActivity extends AppCompatActivity {
         viewModel.getMovies().observe(this, movies -> {
             Log.d(TAG, "movies size " + movies.size());
             adapter.setItems(movies);
+        });
+        viewModel.getConnectionStatus().observe(this, status -> {
+            Log.d(TAG, "connection status " + status.isSuccess());
+            hideProgress();
+            if (!status.isSuccess()) {
+                showConnectionErrorMessage();
+                return;
+            }
+            recyclerView.setVisibility(View.VISIBLE);
         });
     }
 
@@ -79,6 +97,23 @@ public class MovieListActivity extends AppCompatActivity {
         Resources resources = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 dp, resources.getDisplayMetrics()));
+    }
+
+    private void showConnectionErrorMessage() {
+        Snackbar.make(coordinatorLayout, getString(R.string.connection_error), Snackbar.LENGTH_LONG)
+                .setAction(R.string.action_retry, view -> {
+                    viewModel.loadMore();
+                })
+                .setActionTextColor(getResources().getColor(R.color.background))
+                .show();
+    }
+
+    private void showProgress() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgress() {
+        progressBar.setVisibility(View.GONE);
     }
 
     RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {

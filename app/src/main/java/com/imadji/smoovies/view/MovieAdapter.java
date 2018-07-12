@@ -22,6 +22,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.imadji.smoovies.view.MovieListActivity.EXTRA_MOVIE;
+
 /**
  * Created by imadji on 7/10/2018.
  */
@@ -63,7 +65,7 @@ public class MovieAdapter extends RecyclerView.Adapter {
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(holder.itemView.getContext(), MovieDetailsActivity.class);
-            intent.putExtra("movie", movie);
+            intent.putExtra(EXTRA_MOVIE, movie);
             holder.itemView.getContext().startActivity(intent);
         });
     }

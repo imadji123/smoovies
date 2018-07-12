@@ -39,6 +39,8 @@ public class MovieViewModel extends ViewModel {
         this.page = 1;
         this.loading = false;
         this.success = false;
+        this.status = new Status();
+        this.connectionStatus = new MutableLiveData<>();
     }
 
     @Override
@@ -49,10 +51,6 @@ public class MovieViewModel extends ViewModel {
     }
 
     public LiveData<Status> getConnectionStatus() {
-        if (status == null) {
-            this.connectionStatus = new MutableLiveData<>();
-            this.status = new Status();
-        }
         return connectionStatus;
     }
 

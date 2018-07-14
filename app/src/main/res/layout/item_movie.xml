@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_margin="@dimen/spacing_super_tiny"
-        android:elevation="3dp"
+        android:elevation="@dimen/card_movie_poster_elevation"
         card_view:cardCornerRadius="@dimen/card_movie_radius">
 
         <RelativeLayout
@@ -36,7 +36,7 @@
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="@string/app_name"
-                android:textColor="@color/movieTitle"
+                android:textColor="@color/movie_title"
                 android:textSize="@dimen/text_size_small" />
 
             <TextView

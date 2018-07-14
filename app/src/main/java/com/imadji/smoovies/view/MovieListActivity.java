@@ -5,7 +5,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -30,7 +29,7 @@ import butterknife.ButterKnife;
  * Created by imadji on 7/10/2018.
  */
 
-public class MovieListActivity extends AppCompatActivity {
+public class MovieListActivity extends BaseActivity {
     private static final String TAG = MovieListActivity.class.getSimpleName();
     protected static final String EXTRA_MOVIE = "com.imadji.smoovies.extras.EXTRA_MOVIE";
 
@@ -104,7 +103,7 @@ public class MovieListActivity extends AppCompatActivity {
                 .setAction(R.string.action_retry, view -> {
                     viewModel.loadMore();
                 })
-                .setActionTextColor(getResources().getColor(R.color.background))
+                .setActionTextColor(getResources().getColor(R.color.white))
                 .show();
     }
 

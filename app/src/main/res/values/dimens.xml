@@ -9,6 +9,7 @@
     <dimen name="spacing_small">10dp</dimen>
     <dimen name="spacing_tiny">8dp</dimen>
     <dimen name="spacing_super_tiny">4dp</dimen>
+    <dimen name="spacing_one">1dp</dimen>
     <dimen name="spacing_zero">0dp</dimen>
 
     <!-- Text size -->
@@ -24,6 +25,9 @@
     <dimen name="text_size_super_tiny">10sp</dimen>
 
     <dimen name="card_movie_radius">0dp</dimen>
+    <dimen name="card_movie_poster_elevation">3dp</dimen>
+    <dimen name="card_movie_poster_width">140dp</dimen>
+    <dimen name="movie_poster_width">170dp</dimen>
     <dimen name="movie_poster_height">200dp</dimen>
-    <dimen name="movie_backdrop_height">200dp</dimen>
+    <dimen name="movie_backdrop_height">280dp</dimen>
 </resources>

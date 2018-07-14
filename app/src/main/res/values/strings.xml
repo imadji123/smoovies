@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Smoovies</string>
     <string name="movie_details">Movie Details</string>
-    <string name="release_year">Release Year</string>
-    <string name="description">Description</string>
+    <string name="movie_title_and_year">%1$s (%2$s)</string>
+    <string name="overview">Overview</string>
     <string name="related_movies">Related Movies</string>
     <string name="connection_error">Connection problem</string>
     <string name="action_retry">Retry</string>

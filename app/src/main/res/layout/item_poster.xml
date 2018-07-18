@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="@dimen/card_movie_poster_width"
+    android:layout_height="@dimen/movie_poster_height"
+    android:layout_gravity="center"
+    android:layout_margin="@dimen/spacing_super_tiny"
+    app:cardCornerRadius="@dimen/card_movie_radius"
+    app:cardElevation="@dimen/card_movie_poster_elevation"
+    app:cardUseCompatPadding="true">
+
+    <ImageView
+        android:id="@+id/poster"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/spacing_one"
+        android:scaleType="centerCrop" />
+
+</android.support.v7.widget.CardView>

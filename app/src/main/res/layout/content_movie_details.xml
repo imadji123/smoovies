@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".view.MovieDetailsActivity"
+    tools:showIn="@layout/activity_movie_details">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_tiny"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_normal"
+            android:layout_marginRight="@dimen/spacing_normal"
+            android:text="@string/app_name"
+            android:textSize="@dimen/text_size_large"
+            android:ellipsize="end"
+            android:maxLines="3"
+            fontPath="fonts/Roboto-Bold.ttf"
+            tools:ignore="MissingPrefix" />
+
+        <TextView
+            android:id="@+id/overview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_normal"
+            android:layout_marginTop="@dimen/spacing_tiny"
+            android:layout_marginRight="@dimen/spacing_normal"
+            android:layout_below="@id/title"
+            android:text="@string/overview"
+            android:textColor="@color/movie_subtitle"
+            android:textSize="@dimen/text_size_smaller"/>
+
+        <TextView
+            android:id="@+id/text_related_movie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_normal"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:layout_marginRight="@dimen/spacing_normal"
+            android:layout_marginBottom="@dimen/spacing_super_tiny"
+            android:layout_below="@id/overview"
+            android:text="@string/related_movies"
+            android:textSize="@dimen/text_size_small"
+            fontPath="fonts/Roboto-Bold.ttf"
+            tools:ignore="MissingPrefix" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_related_movie"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+</android.support.v4.widget.NestedScrollView>

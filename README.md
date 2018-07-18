@@ -1,2 +1,2 @@
 # Smoovies
-Sample application for learning MVVM pattern.
+Experimental application with MVVM Android Architecture Component.
